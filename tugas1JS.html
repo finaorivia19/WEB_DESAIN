@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Pegawai</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nama Pegawai</th>
+                <th>Jabatan</th>
+                <th>Status</th>
+                <th>Gaji Pokok</th>
+                <th>Tunjangan Jabatan</th>
+                <th>BPJS</th>
+                <th>Tunjangan Keluarga</th>
+                <th>Total Gaji</th>
+            </tr>
+        </thead>
+        <tbody id="dataPegawai">
+            <!-- Data Pegawai akan ditambahkan melalui JavaScript -->
+        </tbody>
+        <tfoot id="totalGaji">
+            <!-- Total Gaji akan ditambahkan melalui JavaScript -->
+        </tfoot>
+    </table>
+
+    <script>
+        let pegawai = "Ridwan";
+        let jabatan = "manager";
+        let status = "menikah";
+        let gajiPokok;
+
+        switch (jabatan) {
+            case "manager":
+                gajiPokok = 15000000;
+                break;
+            case "asisten manager":
+                gajiPokok = 10000000;
+                break;
+            case "staff":
+                gajiPokok = 5000000;
+                break;
+            default:
+                gajiPokok = 0;
+                break;
+        }
+
+        let tunjanganJabatan = 0.15 * gajiPokok;
+        let bpjs = 0.1 * gajiPokok;
+        let tunjanganKeluarga = (status == 'menikah') ? 0.2 * gajiPokok : 0;
+        let totalGaji = gajiPokok + tunjanganJabatan + bpjs + tunjanganKeluarga;
+
+        let tabel = document.getElementById("dataPegawai");
+        let row = tabel.insertRow();
+        row.innerHTML = `
+            <td>${pegawai}</td>
+            <td>${jabatan}</td>
+            <td>${status}</td>
+            <td>${gajiPokok}</td>
+            <td>${tunjanganJabatan}</td>
+            <td>${bpjs}</td>
+            <td>${tunjanganKeluarga}</td>
+            <td>${totalGaji}</td>
+        `;
+
+        let totalGajiTabel = document.getElementById("totalGaji");
+        let totalRow = totalGajiTabel.insertRow();
+        totalRow.innerHTML = `<td colspan="7">Total Gaji</td><td>${totalGaji}</td>`;
+    </script>
+</body>
+</html>

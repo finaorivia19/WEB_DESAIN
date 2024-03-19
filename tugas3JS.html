@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Pegawai</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(107, 102, 102, 0.1);
+        }
+
+        thead {
+            background-color: #5e5b5b;
+            color: #fff;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tfoot {
+            font-weight: bold;
+        }
+
+        tfoot td {
+            padding: 10px;
+            text-align: right;
+            background-color: #785252;
+            color: #fff;
+        }
+
+        tfoot td:first-child {
+            text-align: left;
+        }
+
+        tfoot td:last-child {
+            border-top-right-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Nama Pegawai</th>
+                <th>Jabatan</th>
+                <th>Status</th>
+                <th>Gaji Pokok</th>
+                <th>Tunjangan Jabatan</th>
+                <th>BPJS</th>
+                <th>Tunjangan Keluarga</th>
+                <th>Total Gaji</th>
+            </tr>
+        </thead>
+        <tbody id="dataPegawai">
+            <!-- Data Pegawai akan ditampilkan di sini -->
+        </tbody>
+        <tfoot id="totalGaji">
+            <!-- Total Gaji akan ditampilkan di sini -->
+        </tfoot>
+    </table>
+
+    <script>
+        // Data Pegawai
+        const pegawai = [
+            { nama: "Ratna Sari", jabatan: "Manager", status: "menikah" },
+            { nama: "Putri Marisa", jabatan: "Asisten Manager", status: "menikah" },
+            { nama: "Dinda Hauw", jabatan: "Staff", status: "belum menikah" }
+        ];
+
+        // Fungsi untuk menghitung gaji
+        function hitungGaji(jabatan, status) {
+            let gajiPokok;
+            switch (jabatan) {
+                case "Manager":
+                    gajiPokok = 15000000;
+                    break;
+                case "Asisten Manager":
+                    gajiPokok = 10000000;
+                    break;
+                case "Staff":
+                    gajiPokok = 5000000;
+                    break;
+                default:
+                    gajiPokok = 0;
+            }
+
+            const tunjanganJabatan = 0.15 * gajiPokok;
+            const bpjs = 0.10 * gajiPokok;
+            const tunjanganKeluarga = (status === "menikah") ? 0.20 * gajiPokok : 0;
+
+            const totalGaji = gajiPokok + tunjanganJabatan - bpjs + tunjanganKeluarga;
+
+            return { gajiPokok, tunjanganJabatan, bpjs, tunjanganKeluarga, totalGaji };
+        }
+
+        // Mencetak data pegawai
+        const dataPegawaiContainer = document.getElementById("dataPegawai");
+        const totalGajiContainer = document.getElementById("totalGaji");
+
+        pegawai.forEach(pegawai => {
+            const { nama, jabatan, status } = pegawai;
+            const { gajiPokok, tunjanganJabatan, bpjs, tunjanganKeluarga, totalGaji } = hitungGaji(jabatan, status);
+
+            const row = `
+                <tr>
+                    <td>${nama}</td>
+                    <td>${jabatan}</td>
+                    <td>${status}</td>
+                    <td>${gajiPokok.toLocaleString()}</td>
+                    <td>${tunjanganJabatan.toLocaleString()}</td>
+                    <td>${bpjs.toLocaleString()}</td>
+                    <td>${tunjanganKeluarga.toLocaleString()}</td>
+                    <td>${totalGaji.toLocaleString()}</td>
+                </tr>
+            `;
+            dataPegawaiContainer.innerHTML += row;
+        });
+
+        // Menghitung total gaji semua pegawai
+        const totalGajiSemua = pegawai.reduce((total, pegawai) => {
+            const { jabatan, status } = pegawai;
+            const { totalGaji } = hitungGaji(jabatan, status);
+            return total + totalGaji;
+        }, 0);
+
+        const totalGajiRow = `
+            <tr>
+                <td colspan="7">Total Gaji Keseluruhan</td>
+                <td>${totalGajiSemua.toLocaleString()}</td>
+            </tr>
+        `;
+        totalGajiContainer.innerHTML = totalGajiRow;
+    </script>
+</body>
+</html>

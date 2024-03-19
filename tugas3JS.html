@@ -9,49 +9,67 @@
             font-family: Arial, sans-serif;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        form {
             margin-bottom: 20px;
-            box-shadow: 0 0 20px rgba(107, 102, 102, 0.1);
         }
 
-        thead {
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], select {
+            width: calc(100% - 22px);
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
             background-color: #5e5b5b;
             color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
         }
 
         th, td {
-            padding: 10px;
+            border: 1px solid #ddd;
+            padding: 8px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
         }
 
-        tbody tr:nth-child(even) {
+        th {
             background-color: #f2f2f2;
-        }
-
-        tfoot {
-            font-weight: bold;
-        }
-
-        tfoot td {
-            padding: 10px;
-            text-align: right;
-            background-color: #785252;
-            color: #fff;
-        }
-
-        tfoot td:first-child {
-            text-align: left;
-        }
-
-        tfoot td:last-child {
-            border-top-right-radius: 10px;
         }
     </style>
 </head>
 <body>
+    <form id="pegawaiForm">
+        <label for="nama">Nama Pegawai:</label>
+        <input type="text" id="nama" name="nama">
+
+        <label for="jabatan">Jabatan:</label>
+        <select id="jabatan" name="jabatan">
+            <option value="manager">Manager</option>
+            <option value="asisten manager">Asisten Manager</option>
+            <option value="staff">Staff</option>
+        </select>
+
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+            <option value="menikah">Menikah</option>
+            <option value="belum menikah">Belum Menikah</option>
+        </select>
+
+        <input type="submit" value="Tambah Pegawai">
+    </form>
+
     <table>
         <thead>
             <tr>
@@ -66,84 +84,87 @@
             </tr>
         </thead>
         <tbody id="dataPegawai">
-            <!-- Data Pegawai akan ditampilkan di sini -->
+            <!-- Data Pegawai akan ditambahkan melalui JavaScript -->
         </tbody>
         <tfoot id="totalGaji">
-            <!-- Total Gaji akan ditampilkan di sini -->
+            <!-- Total Gaji akan ditambahkan melalui JavaScript -->
         </tfoot>
     </table>
 
     <script>
-        // Data Pegawai
-        const pegawai = [
-            { nama: "Ratna Sari", jabatan: "Manager", status: "menikah" },
-            { nama: "Putri Marisa", jabatan: "Asisten Manager", status: "menikah" },
-            { nama: "Dinda Hauw", jabatan: "Staff", status: "belum menikah" }
-        ];
+        let pegawaiData = [];
 
-        // Fungsi untuk menghitung gaji
         function hitungGaji(jabatan, status) {
             let gajiPokok;
+
             switch (jabatan) {
-                case "Manager":
+                case "manager":
                     gajiPokok = 15000000;
                     break;
-                case "Asisten Manager":
+                case "asisten manager":
                     gajiPokok = 10000000;
                     break;
-                case "Staff":
+                case "staff":
                     gajiPokok = 5000000;
                     break;
                 default:
                     gajiPokok = 0;
+                    break;
             }
 
             const tunjanganJabatan = 0.15 * gajiPokok;
-            const bpjs = 0.10 * gajiPokok;
-            const tunjanganKeluarga = (status === "menikah") ? 0.20 * gajiPokok : 0;
-
-            const totalGaji = gajiPokok + tunjanganJabatan - bpjs + tunjanganKeluarga;
+            const bpjs = 0.1 * gajiPokok;
+            const tunjanganKeluarga = (status == 'menikah') ? 0.2 * gajiPokok : 0;
+            const totalGaji = gajiPokok + tunjanganJabatan + bpjs + tunjanganKeluarga;
 
             return { gajiPokok, tunjanganJabatan, bpjs, tunjanganKeluarga, totalGaji };
         }
 
-        // Mencetak data pegawai
-        const dataPegawaiContainer = document.getElementById("dataPegawai");
-        const totalGajiContainer = document.getElementById("totalGaji");
+        function tampilkanDataPegawai() {
+            const dataPegawaiContainer = document.getElementById("dataPegawai");
+            dataPegawaiContainer.innerHTML = '';
 
-        pegawai.forEach(pegawai => {
-            const { nama, jabatan, status } = pegawai;
-            const { gajiPokok, tunjanganJabatan, bpjs, tunjanganKeluarga, totalGaji } = hitungGaji(jabatan, status);
+            pegawaiData.forEach(pegawai => {
+                const { nama, jabatan, status } = pegawai;
+                const { gajiPokok, tunjanganJabatan, bpjs, tunjanganKeluarga, totalGaji } = hitungGaji(jabatan, status);
 
-            const row = `
-                <tr>
-                    <td>${nama}</td>
-                    <td>${jabatan}</td>
-                    <td>${status}</td>
-                    <td>${gajiPokok.toLocaleString()}</td>
-                    <td>${tunjanganJabatan.toLocaleString()}</td>
-                    <td>${bpjs.toLocaleString()}</td>
-                    <td>${tunjanganKeluarga.toLocaleString()}</td>
-                    <td>${totalGaji.toLocaleString()}</td>
-                </tr>
-            `;
-            dataPegawaiContainer.innerHTML += row;
+                const row = `
+                    <tr>
+                        <td>${nama}</td>
+                        <td>${jabatan}</td>
+                        <td>${status}</td>
+                        <td>${gajiPokok}</td>
+                        <td>${tunjanganJabatan}</td>
+                        <td>${bpjs}</td>
+                        <td>${tunjanganKeluarga}</td>
+                        <td>${totalGaji}</td>
+                    </tr>
+                `;
+                dataPegawaiContainer.innerHTML += row;
+            });
+
+            const totalGajiSemua = pegawaiData.reduce((total, pegawai) => {
+                const { jabatan, status } = pegawai;
+                const { totalGaji } = hitungGaji(jabatan, status);
+                return total + totalGaji;
+            }, 0);
+
+            const totalGajiContainer = document.getElementById("totalGaji");
+            totalGajiContainer.innerHTML = `<tr><td colspan="7">Total Gaji Keseluruhan</td><td>${totalGajiSemua}</td></tr>`;
+        }
+
+        const form = document.getElementById("pegawaiForm");
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const nama = document.getElementById("nama").value;
+            const jabatan = document.getElementById("jabatan").value;
+            const status = document.getElementById("status").value;
+
+            pegawaiData.push({ nama, jabatan, status });
+            tampilkanDataPegawai();
+            form.reset();
         });
-
-        // Menghitung total gaji semua pegawai
-        const totalGajiSemua = pegawai.reduce((total, pegawai) => {
-            const { jabatan, status } = pegawai;
-            const { totalGaji } = hitungGaji(jabatan, status);
-            return total + totalGaji;
-        }, 0);
-
-        const totalGajiRow = `
-            <tr>
-                <td colspan="7">Total Gaji Keseluruhan</td>
-                <td>${totalGajiSemua.toLocaleString()}</td>
-            </tr>
-        `;
-        totalGajiContainer.innerHTML = totalGajiRow;
     </script>
 </body>
 </html>

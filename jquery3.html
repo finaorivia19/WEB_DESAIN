@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Handler</title>
+    <link rel="stylesheet" href="css/style1.css">
+</head>
+<body>
+    <div id="div1">
+       Burung Kakak Tua
+       <audio id="audio1" src="img/smart_mastering_gereja.mp3" autoplay></audio>
+    </div>
+    <div id="div2">
+        Ayam Jantan
+        <audio id="audio2" src="img/1-Ayam-Keras.mp3" autoplay></audio>
+    </div>
+    <div id="div3">
+        Sapi
+        <audio id="audio3" src="img/cowsound_t41swmb1.mp3" autoplay></audio>
+    </div>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        $("document").ready(function(){
+            $("#div1").mouseover(function(){
+                $(this).css({
+                    background : "url('https://asset.kompas.com/crops/ZooJx7Zw6jqaVJeVsWEEVyOkor0=/27x0:863x558/750x500/data/photo/2023/02/18/63f02d9393e94.jpg')"
+                });
+            });
+            $("#div2").mouseover(function(){
+                $(this).css({
+                    background : "url('https://asset-2.tstatic.net/wartakota/foto/bank/images/jago_20180216_185417.jpg')"
+                });
+            });
+            $("#div3").mouseover(function(){
+                $(this).css({
+                    background : "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiMEK2oltqqs8J0utzfl4BkSJ8FQiUx2tsWA&s')"
+                });
+            });
+            $("div").mouseout(function(){
+                $(this).css({
+                    background : "pink"
+                });
+            });
+        });
+    </script>
+</body>
+</html>

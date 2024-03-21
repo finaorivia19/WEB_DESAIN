@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Tables</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .navbar {
+            background-color: #699fd9;
+        }
+        .navbar-brand, .navbar-nav .nav-link {
+            color: #fff;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+        table {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        table th, table td {
+            border: 1px solid #dee2e6;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">Website Saya</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="index1.html">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="datatables.html">Data Tables</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Data Tables Page</h1>
+        <p>This is the data tables page.</p>
+        <!-- Your DataTables code can be added here -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Fina</td>
+                    <td>Orivia</td>
+                    <td>fina@example.com</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Lia</td>
+                    <td>Kamalia</td>
+                    <td>lia@example.com</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Tia</td>
+                    <td>Smith</td>
+                    <td>tia@example.com</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>Bunga</td>
+                    <td>Citra</td>
+                    <td>bunga@example.com</td>
+                </tr>
+                <tr>
+                    <th scope="row">5</th>
+                    <td>Kirana</td>
+                    <td>Mahalia</td>
+                    <td>kia@example.com</td>
+                </tr>
+                <tr>
+                    <th scope="row">6</th>
+                    <td>Bumi</td>
+                    <td>Pertiwi</td>
+                    <td>bumi@example.com</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
